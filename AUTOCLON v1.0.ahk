@@ -1,9 +1,11 @@
 #MaxThreadsBuffer On    ; makes overtap more useful with having buffers, however at high amounts it creates long buffers that are obvious.
 #NoEnv
+#HotkeyInterval 20
 Process, Priority, , H  ; to make sure its using proper amount of resources
 SetBatchLines -1        ; speed related commands for this and other two lines
 SetKeyDelay, -1, -1, Play
 SetWinDelay, -1
+
 
 DllCall("Winmm\timeBeginPeriod", "UInt", TimePeriod) ; - calls the dll to use for shoter delay between inputs.
 
