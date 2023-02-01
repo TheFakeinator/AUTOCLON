@@ -58,7 +58,7 @@ if (ToggleRakeCheck2 == 1 And CPS > CPSActivate)
 }
 ++CPS
 Minus := Func("Minus").Bind()
-SetTimer,% Minus, -500
+SetTimer,% Minus, -1000
 Return
 
 ~*Joy9::
@@ -68,7 +68,7 @@ if (ToggleRakeCheck2 == 1 And CPS > CPSActivate)
 }
 ++CPS
 Minus := Func("Minus").Bind()
-SetTimer,% Minus, -500
+SetTimer,% Minus, -1000
 Return
 
 Minus()
