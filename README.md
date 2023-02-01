@@ -3,6 +3,7 @@ A EZ way with a GUI to have more overtap and better rakes on GH controllers if m
 Uses Autohotkey v1.1
 
 F.A.Q
+
 q: Why doesn't this work with my controller?
 a: Make sure you're using either a Les Paul or World Tour Wii Controller with a Raphnet adapter, After that open up "Setup USB Game Controllers" in Windows
 and set the controller you're using as the preferred device in "Advanced" options. After all of that reopen the script, should work.
