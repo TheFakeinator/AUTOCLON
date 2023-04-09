@@ -13,7 +13,22 @@ TimePeriod := 1 ; - setting for the type of speed it needs for delay between inp
 Iterations := 0 ; - amount of times it inputs
 Global CPS := 0
 CPSActivate := 0
-ShitFuck := 0
+
+vgreen := "Joy1"
+vred := "Joy2"
+vyellow := "Joy3"
+vblue := "Joy4"
+vorange := "Joy5"
+
+keys := "Joy1,Joy2,Joy3,Joy4,Joy5,Joy6,Joy7,Joy8,Joy9,Joy10,2Joy1,2Joy2,2Joy3,2Joy4,2Joy5,2Joy6,2Joy7,2Joy8,2Joy9,2Joy10,3Joy1,3Joy2,3Joy3,3Joy4,3Joy5,3Joy6,3Joy7,3Joy8,3Joy9,3Joy10,4Joy1,4Joy2,4Joy3,4Joy4,4Joy5,4Joy6,4Joy7,4Joy8,4Joy9,4Joy10,"
+
+GetKeyPress(keyStr) {
+	keys := StrSplit(keyStr, ",")
+	loop
+		for each, key in keys
+			if GetKeyState(key)
+				return key
+}
 
 Gui EC: New, -Resize
 Gui Font, s9, Consolas
@@ -21,10 +36,8 @@ Gui Color, 0xE4E4E4
 Gui Add, Text, vAutoclon x67 y0 w66 h20, AUTOCLON
 Gui Add, Button, gaddone x176 y25 w25 h25, +1
 Gui Add, Button, gsubone x-1 y25 w25 h25, -1
-Gui Font, s8, Consolas
-Gui Add, CheckBox, vLegitOvertapCheck2 gLegitOvertap x26 y28 w48 h20, LEGIT
-Gui Font, s9, Consolas
-Gui Add, Text, vOvertap x80 y28.5 w85 h19 +0x200, OVERTAP - %Iterations%
+Gui Add, CheckBox, vLegitOvertapCheck2 gLegitOvertap x26 y27 w52 h20, LEGIT
+Gui Add, Text, vOvertap x80 y28 w85 h19 +0x200, OVERTAP - %Iterations%
 Gui Add, Text, x20 y62 w152 h23 +0x200 , EXTRARAKE
 Gui Add, CheckBox, vToggleRakeCheck2 gToggleRakeCheck1 x3 y66 w15 h15
 Gui Add, Text, x-344 y110 w559 h2 +0x10 
@@ -34,12 +47,43 @@ Gui Add, Button, gEaddone x170 y60 w25 h25, +1
 Gui Add, Button, gEsubone x100 y60 w25 h25, -1
 Gui Add, Text, x0 y56 w227 h2 +0x10 
 Gui Add, Button, gHelp x147 y111 w52 h18, HELP
+Gui Add, Button, grebind x20 y111 w80 h18, REBIND
 Gui, Submit, NoHide
 Gui Font
 Gui Font
 
 Gui Show, w200 h130, /AC/
 Return
+
+rebind:
+    ; - green
+    MsgBox, Press a key for green.
+    Input := GetKeyPress(Keys)
+    MsgBox, You pressed %Input%
+    Hotkey, %Input%, green, On
+    ; - red
+    MsgBox, Press a key for red.
+    Input := GetKeyPress(Keys)
+    MsgBox, You pressed %Input%
+    Hotkey, %Input%, red, On
+    ; - yellow
+    MsgBox, Press a key for yellow.
+    Input := GetKeyPress(Keys)
+    MsgBox, You pressed %Input%
+    Hotkey, %Input%, yellow, On
+    ; - blue
+    MsgBox, Press a key for blue.
+    Input := GetKeyPress(Keys)
+    MsgBox, You pressed %Input%
+    Hotkey, %Input%, blue, On
+    ; - orange
+    MsgBox, Press a key for orange.
+    Input := GetKeyPress(Keys)
+    MsgBox, You pressed %Input%
+    Hotkey, %Input%, orange, On
+
+    Gui, Submit, NoHide
+return
 
 LegitOvertap:
 Gui, Submit, NoHide
@@ -100,7 +144,7 @@ ECGuiEscape:
 ECGuiClose:
     ExitApp
 
-*Joy1::
+green:
 rnd := rand(1, 5)
     if(LegitOvertapCheck2 == 1 AND rnd == 1)
         {
@@ -120,7 +164,7 @@ rnd := rand(1, 5)
         Return
         }
     Return
-*Joy2::
+red:
 rnd := rand(1, 5)
     if(LegitOvertapCheck2 == 1 AND rnd == 1)
         {
@@ -142,7 +186,7 @@ rnd := rand(1, 5)
         Return
         }
     Return
-*Joy3::
+yellow:
 rnd := rand(1, 5)
     if(LegitOvertapCheck2 == 1 AND rnd == 1)
         {
@@ -162,7 +206,7 @@ rnd := rand(1, 5)
         Return
         }
     Return
-*Joy4::
+blue:
 rnd := rand(1, 5)
     if(LegitOvertapCheck2 == 1 AND rnd == 1)
         {
@@ -182,7 +226,7 @@ rnd := rand(1, 5)
         Return
         }
     Return
-*Joy5::
+orange:
 rnd := rand(1, 6)
     if(LegitOvertapCheck2 == 1 AND rnd == 1)
         {
