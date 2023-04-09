@@ -5,7 +5,6 @@ Uses Autohotkey v1.1
 F.A.Q
 
 q: This no work,,,,
-
 a: Make sure you press the rebind button in the GUI menu and rebind your keys in-game to ASJKL.
 
 q: Will I get banned off of ScoreSpy using this?
