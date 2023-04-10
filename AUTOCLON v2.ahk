@@ -20,7 +20,7 @@ vyellow := "Joy3"
 vblue := "Joy4"
 vorange := "Joy5"
 
-keys := "Joy1,Joy2,Joy3,Joy4,Joy5,Joy6,Joy7,Joy8,Joy9,Joy10,2Joy1,2Joy2,2Joy3,2Joy4,2Joy5,2Joy6,2Joy7,2Joy8,2Joy9,2Joy10,3Joy1,3Joy2,3Joy3,3Joy4,3Joy5,3Joy6,3Joy7,3Joy8,3Joy9,3Joy10,4Joy1,4Joy2,4Joy3,4Joy4,4Joy5,4Joy6,4Joy7,4Joy8,4Joy9,4Joy10,"
+keys := "1Joy1,1Joy2,1Joy3,1Joy4,1Joy5,1Joy6,1Joy7,1Joy8,1Joy9,1Joy10,2Joy1,2Joy2,2Joy3,2Joy4,2Joy5,2Joy6,2Joy7,2Joy8,2Joy9,2Joy10,3Joy1,3Joy2,3Joy3,3Joy4,3Joy5,3Joy6,3Joy7,3Joy8,3Joy9,3Joy10,4Joy1,4Joy2,4Joy3,4Joy4,4Joy5,4Joy6,4Joy7,4Joy8,4Joy9,4Joy10,"
 
 GetKeyPress(keyStr) {
 	keys := StrSplit(keyStr, ",")
