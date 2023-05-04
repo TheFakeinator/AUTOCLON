@@ -1,20 +1,19 @@
 # AUTOCLON
-A EZ way with a GUI to have more overtap and better rakes on GH controllers if modifying the hardware doesn't work out.
-Uses Autohotkey v1.1
+Welcome to the worst script ever, enjoy using it. (not affilated with grimtin10's autoclon)
 
-F.A.Q
+The binds for it are **"ASJKL"** for the frets and **"ZX"** for up and downstrum with Extrarake.  
+Make sure to rebind when you open the script, or else it doesn't work.  
+> Would this work with my controller?  
 
-q: This no work,,,,
+No idea, I'm using joystick input for when the user rebinds. So whatever controller does joystick inputs should work.  
+> Will this get me banned?  
 
-a: Make sure you press the rebind button in the GUI menu and rebind your keys in-game to ASJKL.
+I don't know, try it.  
 
+> Can I contact you?  
 
-q: Will I get banned off of ScoreSpy using this?
+Go ahead, you can find me (DJCyberCum228#6025) <-- here.
 
-a: Most likely, its not detected by the anti-cheat but we're not sure what information is shared when you send in a score. So use with caution!
+> Can I help on the project?  
 
-
-q: What is Extrarake?
-
-a: Basically if you send a input over the strum threshold it will send in an extra strum input every time.
-
+If you find anything you can improve or are willing to do a python conversion (god help your soul), make sure to DM me. I'll be honored to add it to the github.
