@@ -17,3 +17,5 @@ Go ahead, you can find me (DJCyberCum228#6025) <-- here.
 > Can I help on the project?  
 
 If you find anything you can improve or are willing to do a python conversion (god help your soul), make sure to DM me. I'll be honored to add it to the github.
+
+# https://discord.gg/bhSynNet - Join?
