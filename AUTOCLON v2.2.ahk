@@ -14,7 +14,7 @@ SetBatchLines -1
 Process, Priority, , H
 
 ; - Key list for rebinding inputs.
-keys := "1Joy1,1Joy2,1Joy3,1Joy4,1Joy5,1Joy6,1Joy7,1Joy8,1Joy9,1Joy10,1Joy11,1Joy12,1Joy13,2Joy1,2Joy2,2Joy3,2Joy4,2Joy5,2Joy6,2Joy7,2Joy8,2Joy9,2Joy10, 2Joy11, 2Joy12, 2Joy13,3Joy1,3Joy2,3Joy3,3Joy4,3Joy5,3Joy6,3Joy7,3Joy8,3Joy9,3Joy10,3Joy11,3Joy12,3Joy13,4Joy1,4Joy2,4Joy3,4Joy4,4Joy5,4Joy6,4Joy7,4Joy8,4Joy9,4Joy10,"
+keys := "1Joy1,1Joy2,1Joy3,1Joy4,1Joy5,1Joy6,1Joy7,1Joy8,1Joy9,1Joy10,1Joy11,1Joy12,1Joy13,2Joy1,2Joy2,2Joy3,2Joy4,2Joy5,2Joy6,2Joy7,2Joy8,2Joy9,2Joy10,2Joy11,2Joy12,2Joy13,3Joy1,3Joy2,3Joy3,3Joy4,3Joy5,3Joy6,3Joy7,3Joy8,3Joy9,3Joy10,3Joy11,3Joy12,3Joy13,4Joy1,4Joy2,4Joy3,4Joy4,4Joy5,4Joy6,4Joy7,4Joy8,4Joy9,4Joy10,"
 
 GetKeyPress(keyStr) {
 	keys := StrSplit(keyStr, ",")
@@ -33,6 +33,12 @@ Iterations := 0
 Global CPS := 0
 CPSActivate := 0
 
+greenKey = 1Joy1
+redKey = 1Joy2
+yellowKey = 1Joy3
+blueKey = 1Joy4
+orangeKey = 1Joy5
+
 ; - gui section (long)
 
 
@@ -42,7 +48,7 @@ Gui Add, Text, x1 y104 w300 h2 +0x10
 
 Gui Font, s7, Segoe UI
 Gui Add, Text, x110 y213 w100 h15 +0x200, DJCYBERCUM228
-Gui Add, Text, x20 y212 w72 h15 +0x200, AUTOCLON (v2.1)
+Gui Add, Text, x20 y212 w72 h15 +0x200, AUTOCLON (v2.2)
 
 Gui Font, s11, Consolas
 Gui Add, Text, x159 y9 w87 h13 +0x200, LEGIT CHECK
@@ -54,12 +60,13 @@ Gui Add, Text, x20 y9 w56 h14 +0x200, OVERTAP
 
 Gui Font, s9, Segoe UI
 Gui Add, CheckBox, vOutputLegitActivate gLegitActivate x23 y55 w45 h12, LEGIT
+Gui Add, CheckBox, vOutputRageActive gRageActivate x23 y75 w45 h12, RAGE
 Gui Add, Button, gRebinder x199 y211 w80 h17, REBIND
 Gui Add, CheckBox, vExtraRakeActivate gExtraRakeActivate x106 y117 w78 h12, EXTRARAKE
 
 Gui Font,, FixedSys
 Gui Add, Button, gOvertapHelp x80 y9 w12 h12, ?
-Gui Add, Button, gLegitHelp x76 y55 w12 h12, ?
+Gui Add, Button, gLegitHelp x76 y65 w12 h12, ?
 Gui Add, Button, gOvertapAddOne x64 y27 w22 h22, +1
 Gui Add, Button, gOvertapSubOne x11 y27 w22 h22, -1
 Gui Add, Button, gLegitOvertapAddOne x256 y27 w22 h22, +1
@@ -91,6 +98,9 @@ Return
 LegitActivate:
     Gui, Submit, NoHide
     Return
+RageActivate:
+    Gui, Submit, NoHide
+    Return
 ExtraRakeActivate:
     Gui, Submit, NoHide
     Return
@@ -103,7 +113,7 @@ ExtraRakeSubOne:
     GuiControl,, ExtraRakeCheck, %CPSActivate%
     Return
 LegitHelp:
-    MsgBox, Makes ahk-generated overtap randomized. Change the chance of which it activates to the right of the overtap controls.
+    MsgBox, Makes ahk-generated overtap randomized. Change the chance of which it activates to the right of the overtap controls. Rage right under it makes it overtap on release.
     Return
 
 OvertapHelp:
@@ -114,26 +124,31 @@ Rebinder:
     Sleep, 200
     MsgBox, Press your green fret.
     Input := GetKeyPress(Keys)
+    greenKey := %Input%
     MsgBox, You pressed %Input%
     Hotkey, %Input%, green, On
 
     MsgBox, Press your red fret
     Input := GetKeyPress(Keys)
+    redKey := %input%
     MsgBox, You pressed %Input%
     Hotkey, %Input%, red, On
 
     MsgBox, Press your yellow fret.
     Input := GetKeyPress(Keys)
+    yellowKey := %Input%
     MsgBox, You pressed %Input%
     Hotkey, %Input%, yellow, On
 
     MsgBox, Press your blue fret.
     Input := GetKeyPress(Keys)
+    blueKey := %Input%
     MsgBox, You pressed %Input%
     Hotkey, %Input%, blue, On
 
     MsgBox, Press your orange fret.
     Input := GetKeyPress(Keys)
+    orangeKey := %Input%
     MsgBox, You pressed %Input%
     Hotkey, %Input%, orange, On
 
@@ -170,22 +185,21 @@ GuiClose:
 
 green:
     rnd := rand(1, LegitOvertapChance)
-    if(OutputLegitActivate== 1)
-    {
-    if(rnd == 1)
-    {
-    Loop, %Iterations%
-        {
+    if(OutputRageActive == 1) {
+        goto, ragegreen
+        Return
+    }
+    if(OutputLegitActivate == 1) {
+        if(rnd == 1) {
+        Loop, %Iterations% {
             DllCall("Sleep", "UInt", SleepDuration)
             SendInput, a
+            }
+        Return
         }
-    Return
     }
-    }
-    else
-    {
-    Loop, %Iterations%
-        {
+    else {
+        Loop, %Iterations% {
             DllCall("Sleep", "UInt", SleepDuration)
             SendInput, a
         }
@@ -193,22 +207,22 @@ green:
     Return
 red:
     rnd := rand(1, LegitOvertapChance)
-    if(OutputLegitActivate == 1)
-    {
-    if(rnd == 1)
-    {
-    Loop, %Iterations%
-        {
-            DllCall("Sleep", "UInt", SleepDuration)
-            SendInput, s
+    if(OutputRageActive == 1) {
+        goto, ragered
+        Return
+    }
+    if(OutputLegitActivate == 1) {
+        if(rnd == 1) {
+            Loop, %Iterations% {
+                DllCall("Sleep", "UInt", SleepDuration)
+                SendInput, s
+            }
+        Return
         }
-    Return
     }
-    }
-    else
-    {
-    Loop, %Iterations%
-        {
+
+    else {
+        Loop, %Iterations% {
             DllCall("Sleep", "UInt", SleepDuration)
             SendInput, s
         }
@@ -216,23 +230,22 @@ red:
     Return
 yellow:
     rnd := rand(1, LegitOvertapChance)
-    if(OutputLegitActivate == 1)
-    {
-    if(rnd == 1)
-    {
-    Loop, %Iterations%
-        {
+    if(OutputRageActive == 1) {
+        goto, rageyellow
+        Return
+    }
+    if(OutputLegitActivate == 1) {
+    if(rnd == 1) {
+        Loop, %Iterations% {
             DllCall("Sleep", "UInt", SleepDuration)
             SendInput, j
+            }
+        Return
         }
-    Return
-    }
     }
 
-    else
-    {
-    Loop, %Iterations%
-        {
+    else {
+        Loop, %Iterations% {
             DllCall("Sleep", "UInt", SleepDuration)
             SendInput, j
         }
@@ -240,22 +253,22 @@ yellow:
     Return
 blue:
     rnd := rand(1, LegitOvertapChance)
-    if(OutputLegitActivate == 1)
-    {
-    if(rnd == 1)
-    {
-    Loop, %Iterations%
-        {
-            DllCall("Sleep", "UInt", SleepDuration)
-            SendInput, k
+    if(OutputRageActive == 1) {
+        goto, rageblue
+        Return
+    }
+    if(OutputLegitActivate == 1) {
+        if(rnd == 1) {
+            Loop, %Iterations% {
+                DllCall("Sleep", "UInt", SleepDuration)
+                SendInput, k
+            }
+        Return
         }
-    Return
     }
-    }
-    else
-    {
-    Loop, %Iterations%
-        {
+
+    else {
+        Loop, %Iterations% {
             DllCall("Sleep", "UInt", SleepDuration)
             SendInput, k
         }
@@ -263,33 +276,76 @@ blue:
     Return
 orange:
     rnd := rand(1, LegitOvertapChance)
-    if(OutputLegitActivate == 1)
-    {
-    if(rnd == 1)
-    {
-    Loop, %Iterations%
-        {
-            DllCall("Sleep", "UInt", SleepDuration)
-            SendInput, l
-        }
-    Return
+    if(OutputRageActive == 1) {
+        goto, rageorange
+        Return
     }
-    }
-    else
-    {
-    Loop, %Iterations%
-        {
-            DllCall("Sleep", "UInt", SleepDuration)
-            SendInput, l
+
+    if(OutputLegitActivate == 1) {
+        if(rnd == 1) {
+            Loop, %Iterations% {
+                DllCall("Sleep", "UInt", SleepDuration)
+                SendInput, l
+            }
+        Return
         }
     }
+
+    else {
+        Loop, %Iterations% {
+                DllCall("Sleep", "UInt", SleepDuration)
+                SendInput, l
+            }
+    }
     Return
 
+ragegreen:
+    While, GetKeyState(A_ThisHotkey) {
+        sleep, 6
+    }
+    loop, %Iterations% {
+        DllCall("Sleep", "UInt", SleepDuration)
+        SendInput, a
+        }  
+    return
+ragered:
+    While, GetKeyState(A_ThisHotkey) {
+        sleep, 6
+    }
+    loop, %Iterations% {
+        DllCall("Sleep", "UInt", SleepDuration)
+        SendInput, s
+        }  
+    return
+rageyellow:
+    While, GetKeyState(A_ThisHotkey) {
+        sleep, 6
+    }
+    loop, %Iterations% {
+        DllCall("Sleep", "UInt", SleepDuration)
+        SendInput, j
+        }  
+    return
+rageblue:
+    While, GetKeyState(A_ThisHotkey) {
+        sleep, 6
+    } 
+    loop, %Iterations% {
+        DllCall("Sleep", "UInt", SleepDuration)
+        SendInput, k
+        }    
+    return
+rageorange:
+    While, GetKeyState(A_ThisHotkey) {
+        sleep, 6
+    }
+    loop, %Iterations% {
+        DllCall("Sleep", "UInt", SleepDuration)
+        SendInput, l
+        }  
+    return
 
-
-
-
-; - extrarake
+    ; - extrarake
 
 strumup:
 if(ExtraRakeActivate == 1)
